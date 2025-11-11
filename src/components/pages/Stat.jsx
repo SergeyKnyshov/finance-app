@@ -1,8 +1,17 @@
 import React from "react";
+import DataList from "../views/local/DataList";
+import Foot from "../views/global/Foot";
 
-const Stat = () =>{
+
+const Stat = (props) =>{
+
+    const {statData} = props;
+
     return (
-        <React.Fragment></React.Fragment>
+        <React.Fragment>
+            <DataList data={statData}/>
+            <Foot></Foot>
+        </React.Fragment>
     )
 }
 

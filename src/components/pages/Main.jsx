@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import Head from '../views/global/Head'
 import Foot from '../views/global/Foot'
 import css from "../../styles/form.css";
 import InputComponent from "../comps/Input";
@@ -8,19 +7,19 @@ import DataList from "../views/local/DataList";
 
 const {FormContainer, Button} = css;
 
-const Main = () =>{
+const Main = (props) =>{
 
     const [value, setValue] = useState('');
     const[type, setType] = useState('');
     const [comment, setComment] = useState('');
+    const {action} = props;
 
-    const [data, setData] = useState([])
 
     const handleClick = () => {
         if (String(value).length > 2 && type){
-
             const dataLine = `${value}::${type}::${comment}`
-            setData(
+
+            action(
                 prev => [...prev, dataLine]
             );
 
@@ -33,7 +32,6 @@ const Main = () =>{
 
     return (
         <React.Fragment>
-            <Head></Head>
             <FormContainer>
                 <InputComponent inputValue={value} action={setValue} params={{placeholder:"Введите сумму транзакции"}}/>
                 <InputComponent inputValue={type} action={setType} params={{placeholder: "Введите тип транзакции", maxLength: 50 }}/>
@@ -43,7 +41,6 @@ const Main = () =>{
                     "rgb(176,243,71)":
                     "rgb(229,229,229)"} onClick={handleClick}>Сохранить транзакцию</Button>
             </FormContainer>
-            <DataList data={data} />
             <Foot></Foot>
         </React.Fragment>
     )

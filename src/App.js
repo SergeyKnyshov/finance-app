@@ -1,10 +1,20 @@
-import React from "react";
+import React, {useState} from "react";
 import Main from "./components/pages/Main";
+import Stat from "./components/pages/Stat";
+import Head from "./components/views/global/Head";
 
 function App() {
-  return (
+
+    const [showPage, setShowPage] = useState('main');
+    const [data, setData] = useState([])
+
+
+    return (
     <React.Fragment>
-        <Main></Main>
+        <Head action={setShowPage}></Head>
+        {showPage === 'main'
+            ? <Main action={setData}></Main>
+            : <Stat statData={data}></Stat>}
     </React.Fragment>
   );
 }

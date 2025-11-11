@@ -26,7 +26,26 @@ const css = {
         position: relative;
         width: ${props => props.width};
         font-size: 14px;
+    `,
+    ButtonsLine:styled.div`
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        position: relative;
+        width: 800px;
+        margin: 0 auto;
+        margin-top: 40px;
+    `,
+    ButtonItem:styled.span`
+        display: block;
+        position: relative;
+        font-size: 13px;
+        color: grey;
+        margin-right: 40px;
+        cursor: pointer;
     `
+
 }
 
 export default css;

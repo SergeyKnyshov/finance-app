@@ -12,15 +12,18 @@ const buttonCss ={
 }
 
 
-const Head = () =>{
+const Head = (props) =>{
+
+    const {action} = props;
+
     return (
         <React.Fragment>
             <HeaderContainer>
                 <HeaderCSS.Logo>FinManager</HeaderCSS.Logo>
                 <HeaderCSS.MenuContainer>
-                    <button style={buttonCss}>Главная</button>
-                    <button style={buttonCss}>Статистика</button>
-                    <button style={buttonCss}>Планирование</button>
+                    <button onClick={()=>action('main')} style={buttonCss}>Главная</button>
+                    <button onClick={()=>action('stat')} style={buttonCss}>Статистика</button>
+                    <button onClick={()=>action('plain')} style={buttonCss}>Планирование</button>
                 </HeaderCSS.MenuContainer>
             </HeaderContainer>
         </React.Fragment>
