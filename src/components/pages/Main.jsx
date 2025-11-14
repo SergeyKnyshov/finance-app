@@ -2,7 +2,11 @@ import React, {useState} from "react";
 import Foot from '../views/global/Foot'
 import css from "../../styles/form.css";
 import InputComponent from "../comps/Input";
-import DataList from "../views/local/DataList";
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
 
 
 const {FormContainer, Button} = css;
@@ -28,13 +32,27 @@ const Main = (props) =>{
             setComment('');
         }
     }
+    const handleChange = (event) => {
+        setType(event.target.value);
+    };
 
 
     return (
         <React.Fragment>
             <FormContainer>
                 <InputComponent inputValue={value} action={setValue} params={{placeholder:"Введите сумму транзакции"}}/>
-                <InputComponent inputValue={type} action={setType} params={{placeholder: "Введите тип транзакции", maxLength: 50 }}/>
+                <FormControl sx={{ width: "100%", textAlign: "left" }}>
+                <FormLabel id="demo-controlled-radio-buttons-group">Вид транзакции</FormLabel>
+                    <RadioGroup
+                        aria-labelledby="demo-controlled-radio-buttons-group"
+                        name="controlled-radio-buttons-group"
+                        value={type}
+                        onChange={handleChange}
+                    >
+                        <FormControlLabel value="доход" control={<Radio />} label="Доход" />
+                        <FormControlLabel value="расход" control={<Radio />} label="Расход" />
+                    </RadioGroup>
+                </FormControl>
                 <InputComponent inputValue={comment} action={setComment} params={{placeholder:"Введите комментарий"}}/>
                 <Button backgroundColor={
                     String(value).length > 2 && type ?
