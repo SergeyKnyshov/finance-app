@@ -11,16 +11,16 @@ import FormLabel from '@mui/material/FormLabel';
 
 const {FormContainer, Button} = css;
 
-const Main = (props) =>{
+const Main = (props) => {
 
     const [value, setValue] = useState('');
-    const[type, setType] = useState('');
+    const [type, setType] = useState('');
     const [comment, setComment] = useState('');
     const {action} = props;
 
 
     const handleClick = () => {
-        if (String(value).length > 2 && type){
+        if (String(value).length > 2 && type) {
             const dataLine = `${value}::${type}::${comment}`
 
             action(
@@ -35,29 +35,51 @@ const Main = (props) =>{
     const handleChange = (event) => {
         setType(event.target.value);
     };
+    const handleChangeComment = (event) => {
+        setComment(event.target.value);
+    };
 
 
     return (
         <React.Fragment>
             <FormContainer>
-                <InputComponent inputValue={value} action={setValue} params={{placeholder:"Введите сумму транзакции"}}/>
-                <FormControl sx={{ width: "100%", textAlign: "left" }}>
-                <FormLabel id="demo-controlled-radio-buttons-group">Вид транзакции</FormLabel>
+                <InputComponent inputValue={value} action={setValue}
+                                params={{placeholder: "Введите сумму транзакции"}}/>
+                <FormControl sx={{width: "100%", textAlign: "left"}}>
+                    <FormLabel id="demo-controlled-radio-buttons-group">Вид транзакции</FormLabel>
                     <RadioGroup
                         aria-labelledby="demo-controlled-radio-buttons-group"
                         name="controlled-radio-buttons-group"
                         value={type}
                         onChange={handleChange}
                     >
-                        <FormControlLabel value="доход" control={<Radio />} label="Доход" />
-                        <FormControlLabel value="расход" control={<Radio />} label="Расход" />
+                        <FormControlLabel value="доход" control={<Radio/>} label="Доход"/>
+                        <FormControlLabel value="расход" control={<Radio/>} label="Расход"/>
                     </RadioGroup>
                 </FormControl>
-                <InputComponent inputValue={comment} action={setComment} params={{placeholder:"Введите комментарий"}}/>
+                {type === 'доход' &&
+                    <InputComponent inputValue={comment} action={setComment} params={{placeholder: "Комментарий"}}/>}
+                {type === 'расход' &&
+                    <FormControl sx={{width: "100%", textAlign: "left"}}>
+                        <FormLabel>Вид расходов</FormLabel>
+                        <RadioGroup sx={{width: "100%", textAlign: "left"}}
+                                    aria-labelledby="demo-controlled-radio-buttons-group"
+                                    name="controlled-radio-buttons-group"
+                                    value={comment}
+                                    onChange={handleChangeComment}
+                        >
+                            <FormControlLabel value="продукты" control={<Radio/>} label="Продукты"/>
+                            <FormControlLabel value="оплата счетов" control={<Radio/>} label="Оплата счетов"/>
+                            <FormControlLabel value="одежда" control={<Radio/>} label="Одежда"/>
+                            <FormControlLabel value="развлечения" control={<Radio/>} label="Развлечения"/>
+                            <FormControlLabel value="путешествия" control={<Radio/>} label="Путешествия"/>
+                            <FormControlLabel value="инвестиции" control={<Radio/>} label="Инвестиции"/>
+                        </RadioGroup>
+                    </FormControl>}
                 <Button backgroundColor={
                     String(value).length > 2 && type ?
-                    "rgb(176,243,71)":
-                    "rgb(229,229,229)"} onClick={handleClick}>Сохранить транзакцию</Button>
+                        "rgb(176,243,71)" :
+                        "rgb(229,229,229)"} onClick={handleClick}>Сохранить транзакцию</Button>
             </FormContainer>
             <Foot></Foot>
         </React.Fragment>
